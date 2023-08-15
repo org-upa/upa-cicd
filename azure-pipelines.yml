@@ -7,7 +7,9 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  name: Default
+  demands:
+    Unity_2021.3.6f1
 
 steps:
 - script: echo Hello, world!
