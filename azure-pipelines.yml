@@ -13,6 +13,22 @@ pool:
 
 
 steps:
+
+# Cleanup for unity build
+- task: DeleteFiles@1
+  inputs:
+    SourceFolder: '$(Build.ArtifactStagingDirectory)'
+    Contents: '**/*'
+
+# Get the previously secured library (if any) for performance reasons
+- task: DeleteFiles@1
+  inputs:
+    SourceFolder: '$(Build.Repository.LocalPath)\Library'
+    Contents: '**/*'
+- task: CmdLine@2
+  inputs:
+    script: 'if EXIST "$(Build.BinariesDirectory)\Library\" move "$(Build.BinariesDirectory)\Library" "$(Build.Repository.LocalPath)\Library"'
+
 - task: UnityBuildTask@3
   inputs:
     buildTarget: 'Win64'
