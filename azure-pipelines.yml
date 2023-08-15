@@ -17,12 +17,12 @@ steps:
   inputs:
     buildTarget: 'Win64'
     unityEditorsPathMode: 'specify'
-    customUnityEditorsPath: 'D:\Tools\Unity\Editor\2021.3.6f1\Editor'
+    customUnityEditorsPath: 'D:\Tools\Unity\Editor'
     versionSelectionMode: 'project'
     outputPath: '$(Build.BinariesDirectory)'
     outputFileName: 'UPA Build'
     
-    
+
 # - script: echo Hello, world!
 #   displayName: 'Run a one-line script'
 
