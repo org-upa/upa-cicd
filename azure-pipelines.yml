@@ -35,9 +35,17 @@ steps:
     unityEditorsPathMode: 'specify'
     customUnityEditorsPath: 'D:\Tools\Unity\Editor'
     versionSelectionMode: 'project'
-    outputPath: '$(Build.BinariesDirectory)'
+    outputPath: '$(Build.BinariesDirectory)\Build'
     outputFileName: 'UPA Build'
     
+- task: DeleteFiles@1
+  inputs:
+    SourceFolder: '$(Build.BinariedDirectory)\Library'
+    Contents: '**/*'
+
+- task: CmdLine@2
+  inputs:
+    script: 'move "$(Build.Repository.LocalPath)\Library" "$(Build.BinariesDirectory)\Library"'
 
 # - script: echo Hello, world!
 #   displayName: 'Run a one-line script'
