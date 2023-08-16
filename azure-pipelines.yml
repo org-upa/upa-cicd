@@ -48,7 +48,7 @@ steps:
 # Upload artifact 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.BinariesDirectory)\SetupCreation'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\SetupCreation'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
