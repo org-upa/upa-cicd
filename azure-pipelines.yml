@@ -33,6 +33,7 @@ steps:
     buildTarget: 'Win64'
     unityEditorsPathMode: 'specify'
     customUnityEditorsPath: 'D:\Tools\Unity\Editor'
+    unityProjectPath: 'UnitySource\'
     versionSelectionMode: 'project'
     outputPath: '$(Build.BinariesDirectory)\Build'
     outputFileName: 'UPA Build'
