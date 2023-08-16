@@ -36,7 +36,7 @@ steps:
     unityProjectPath: 'UnitySource\'
     versionSelectionMode: 'project'
     outputPath: '$(Build.BinariesDirectory)\Build'
-    outputFileName: 'UPA Build'
+    outputFileName: 'UPA'
 
 # Create the installer
 - task: BatchScript@1
@@ -48,7 +48,7 @@ steps:
 # Upload artifact 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.BinariesDirectory)\Build'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\SetupCreation'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
