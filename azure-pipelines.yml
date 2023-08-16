@@ -11,7 +11,6 @@ pool:
   demands:
     Unity_2021.3.6f1
 
-
 steps:
 
 # Cleanup for unity build
@@ -23,11 +22,11 @@ steps:
 # Get the previously secured library (if any) for performance reasons
 - task: DeleteFiles@1
   inputs:
-    SourceFolder: '$(Build.Repository.LocalPath)\Library'
+    SourceFolder: '$(Build.Repository.LocalPath)\UnitySource\Library'
     Contents: '**/*'
 - task: CmdLine@2
   inputs:
-    script: 'if EXIST "$(Build.BinariesDirectory)\Library\" move "$(Build.BinariesDirectory)\Library" "$(Build.Repository.LocalPath)\Library"'
+    script: 'if EXIST "$(Build.BinariesDirectory)\Library\" move "$(Build.BinariesDirectory)\Library" "$(Build.Repository.LocalPath)\UnitySource\Library"'
 
 - task: UnityBuildTask@3
   inputs:
@@ -37,13 +36,22 @@ steps:
     versionSelectionMode: 'project'
     outputPath: '$(Build.BinariesDirectory)\Build'
     outputFileName: 'UPA Build'
-    
+
+# Create the installer
+- task: BatchScript@1
+  inputs:
+    filename: 'Installer/createsetup.bat'
+    arguments: '"$(Build.BinariesDirectory)\Build\*" "$(Build.ArtifactStagingDirectory)\SetupCreation" "0.1.$(Build.BuildNumber)"'
+    workingFolder: '$(Build.Repository.LocalPath)\Installer'
+
+# Upload artifact 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.BinariesDirectory)\Build'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
+# Secure the library for performance reasons
 - task: DeleteFiles@1
   inputs:
     SourceFolder: '$(Build.BinariedDirectory)\Library'
@@ -51,12 +59,4 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: 'move "$(Build.Repository.LocalPath)\Library" "$(Build.BinariesDirectory)\Library"'
-
-# - script: echo Hello, world!
-#   displayName: 'Run a one-line script'
-
-# - script: |
-#     echo Add other tasks to build, test, and deploy your project.
-#     echo See https://aka.ms/yaml
-#   displayName: 'Run a multi-line script'
+    script: 'move "$(Build.Repository.LocalPath)\UnitySource\Library" "$(Build.BinariesDirectory)\Library"'
