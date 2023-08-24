@@ -1,3 +1,4 @@
 1. Test after check out new branch.
 2. Second try
 3. Third try: 2 approvals, Do not allow bypassing the above settings
+4. Seems like only 1 approval + Do not allow bypassing, will do.
