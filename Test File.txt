@@ -1,2 +1,0 @@
-1. Test PR from Admin
-2. Test PR from Admin, check if need approval from others
